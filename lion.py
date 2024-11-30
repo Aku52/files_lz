@@ -2,7 +2,8 @@ import docx
 from collections import Counter
 import re # Модуль для работы с текстом 
 import pandas as pd
-    
+import matplotlib.pyplot as plt
+
 doc = docx.Document('lion.docx')
 
 quantity_par = len(doc.paragraphs) # Количество обзацев
