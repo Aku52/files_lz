@@ -4,12 +4,14 @@ import re # Модуль для работы с текстом
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
+
 doc = docx.Document('lion.docx')
 
 quantity_par = len(doc.paragraphs) # Количество обзацев
 no_repet_list = [] # Cписок для слов без повторений 
 
-general_list = []
+general_leters = []
 rus_let = re.compile(r'[а-яё]', re.IGNORECASE) # Регулярное выражение для поиска русских букв
 
 rus_text = [] # Список для всего русского текста 
@@ -19,7 +21,7 @@ for paragraph in doc.paragraphs: # Проходимся по всем параг
     text = paragraph.text.lower() # Приводим текст к нижнему регистру
     words = rus_word.findall(text) # Находим все русские слова
     letters = rus_let.findall(text) # Находим все русские буквы
-    general_list .append(letters) # Добовляем буквы в общий список
+    general_leters .append(letters) # Добовляем буквы в общий список
 
 
     for word in words:
@@ -62,7 +64,7 @@ dict_word.save('встречаемость_слов.docx') # Сохраняем 
 
 # Буквы в тексте
 
-letters_counts = Counter(letters) # Cчитаем частоту встречаемости букв
+letters_counts = Counter(general_leters) # Cчитаем частоту встречаемости букв
 df_letter = pd.DataFrame(letters_counts.items(),columns=['Буквы','Количество'])
 df_letter['Количество'] = pd.to_numeric(df_letter['Количество']) # to_numeric преобразования значений в столбцах DataFrame в числовой тип данных
 
